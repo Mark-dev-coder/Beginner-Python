@@ -1,0 +1,74 @@
+import random
+name = input("Player Name: ")    
+upto = int(input("Range: "))
+start = 1
+end = upto
+def user_guess():
+    global start, end, user_tries
+    
+    guess_number = int(input("\nYour Guess: "))
+    if guess_number < 1 or guess_number > upto:
+        print("Out of Range")
+    elif guess_number == random_number:
+        print(f"You got it, Congratulations {name}!\nNumber of tries: {user_tries}")
+        return True
+    elif guess_number < random_number:
+        print("Guess Higher")
+        if start <= guess_number:
+            start = guess_number + 1
+        user_tries += 1
+    elif guess_number > random_number:
+        print("Guess Lower")
+        if end >= guess_number:
+            end = guess_number - 1 
+        user_tries += 1    
+    else:
+        print("Your input is invalid. Try again")
+    return False    
+ 
+def computer_guess():
+    global start, end, computer_tries
+    
+    guess_number = random.randint(start, end)
+    print(f"\nComputer's Guess: {guess_number}")
+    if guess_number == random_number:
+        print(f"Computer got it, Better luck next time!\nNumber of tries: {computer_tries}")
+        return True
+    elif guess_number < random_number:
+        print("Guess Higher")
+        if start <= guess_number:
+            start = guess_number +1
+        computer_tries += 1
+    elif guess_number > random_number:
+        print("Guess Lower")
+        if end >= guess_number:
+            end = guess_number - 1 
+        computer_tries += 1
+    return False   
+    
+def player_turn(user_decision):
+            if user_decision == "1st":
+                print("\nYou are Player 1\nComputer is Player 2")
+                
+                while True:                                        
+                    if user_guess():
+                        break                                     
+                    if computer_guess():
+                        break
+            elif user_decision == "2nd":
+                print("\nComputer is Player 1\nYou are Player 2")
+                while True:                
+                    if computer_guess():
+                        break                  
+                    if user_guess():
+                        break
+                    
+
+user_tries = 1
+computer_tries = 1   
+random_number = random.randint(1, upto)
+user_turn = ["1st", "2nd"]
+playerdecision = random.choice(user_turn)
+player_turn(playerdecision)
+
+    
